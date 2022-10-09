@@ -17,7 +17,7 @@ public class Program {
 			
 			st = conn.createStatement();
 			
-			int rows1 = st.executeUpdate("update seller set BaseSalary = 2090 whre DepartmentId = 1");
+			int rows1 = st.executeUpdate("update seller set BaseSalary = 2090 where DepartmentId = 1");
 			
 			int x = 1;
 			if (x < 2){
