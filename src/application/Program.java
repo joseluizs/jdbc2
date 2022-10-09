@@ -1,33 +1,36 @@
 package application;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import db.DB;
-import db.DbIntegrityException;
 
 public class Program {
 
 	public static void main(String[] args) {
 		
 		Connection conn = null;
-		PreparedStatement st =  null;
+		Statement st =  null;
 		try {
 			conn = DB.getConnection();
 			
-			st = conn.prepareStatement(
-					"delete from department "
-					+ "where "
-					+ "Id = ?");
+			st = conn.createStatement();
 			
-			st.setInt(1, 5);
-			int rowsAffected = st.executeUpdate();
-			System.out.println("Done! Rows affected " + rowsAffected);
+			int rows1 = st.executeUpdate("update seller set BaseSalary = 2090 whre DepartmentId = 1");
 			
+			int x = 1;
+			if (x < 2){
+				throw new SQLException("Fake error !");
+			}
+			
+			int rows2 = st.executeUpdate("update seller set BaseSalary = 3090 whre DepartmentId = 2");
+			
+			System.out.println("rows1 " + rows1);
+			System.out.println("rows2 " + rows2);
 			
 		} catch (SQLException e) {
-			throw new DbIntegrityException(e.getMessage());
+			e.printStackTrace();
 		} finally {
 			DB.closeStatement(st);
 			DB.closeConnection();
